@@ -30,4 +30,20 @@ server.post("/users", (req, res) => {
     });
 });
 
+server.delete("/users/:id", (req, res) => {
+  const user = req.params.id
+
+  Users.remove(user)
+    .then(deleted => {
+      if (deleted) {
+        res.json({ removed: deleted });
+      } else {
+        res.status(404).json({ message: 'Could not find user with given id' });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Failed to delete user' });
+    });
+});
+
 module.exports = server;

@@ -11,7 +11,7 @@ module.exports = {
 async function insert(user) {
   return db("users")
     .insert(user)
-    .returning("id");
+    // .returning("id");
 }
 
 async function update(id, changes) {
@@ -19,7 +19,12 @@ async function update(id, changes) {
 }
 
 function remove(id) {
-  return null;
+  return db("users")
+  .where({id})
+  .delete()
+  // .then(user => {
+  //   return null
+  // })
 }
 
 function getAll() {
